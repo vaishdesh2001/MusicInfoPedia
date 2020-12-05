@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Music Infopedia!</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+        <meta name = "author" content="Vaishnavi"/>
+        <style>
+            body {
+                background-color: rgb(212, 255, 187);
+            }
+
+            h1 {
+                padding-top: 30px;
+                color:rgb(115, 111, 155);
+                font-family: 'Acme', serif;;
+                font-size: 48px;
+                text-align: center;
+            }
+
+            button {
+                background-color: rgb(115, 111, 155);
+                color:rgb(205, 248, 255);
+                border:rgb(115, 111, 155);
+                font-size: 16px;
+                width: 200px;
+                height: 100px;
+                border-radius: 8px;
+                display: inline-block;
+            }
+            button:hover {
+                background-color: rgb(205, 248, 255);
+                color:rgb(115, 111, 155);
+            }
+            #buttoncontainer {
+                padding-top: 50px;
+                text-align: center;
+            }
+            #searchbarcontainer {
+                padding-top: 50px;
+                text-align: center;
+                padding: 14px 16px; 
+            }
+            input{
+                width: 500px;
+                height: 40px;
+            }
+
+        </style>
+
+        <script>
+            function handleButtonSongClick() {
+            var str = document.getElementById("text").value;
+                let ps = document.getElementById("output");
+                ps.innerHTML = "Searching for this Song..." + str;
+            }
+
+            function handleButtonArtistClick() {
+            var str = document.getElementById("text").value;
+                let ps = document.getElementById("output");
+                ps.innerHTML = "Searching for Songs by this Artist..." +str;
+            }
+
+            function handleButtonGenreClick() {
+            var str = document.getElementById("text").value;
+                let ps = document.getElementById("output");
+                ps.innerHTML = "Searching for Songs in this Genre..."+str;
+                
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Music Infopedia!</h1>
+        <div id="searchbarcontainer">
+            <input type="text" id="text" placeholder="Enter a song/artist/genre" >
+        </div>
+        <div id="buttoncontainer">
+        <button id="Song" onclick="handleButtonSongClick();">Click to Find Info on this Song!</button>
+        <button id="Artist" onclick="handleButtonArtistClick();">Click to find Top 10 Songs by this Artist!</button>
+        <button id="Genre" onclick="handleButtonGenreClick();">Click to find Trending Songs in this Genre!</button>
+        </div>
+        <p>Which button?</p>
+        <p id='output'></p>
+    </body>
+
+</html>
