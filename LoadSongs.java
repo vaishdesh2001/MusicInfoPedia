@@ -30,7 +30,7 @@ public class LoadSongs {
         while (scnr.hasNextLine()) {
           line = scnr.nextLine();
           String[] commaSeparated = line.split(",");
-          Song toAdd = new Song(commaSeparated[0], commaSeparated[1], commaSeparated[3], commaSeparated[2] );
+          Song toAdd = new Song(commaSeparated[0], commaSeparated[1], commaSeparated[3], commaSeparated[2], commaSeparated[4]);
           manager.putSong(commaSeparated[0], toAdd);
         }
     }

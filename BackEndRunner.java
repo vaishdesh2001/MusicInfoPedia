@@ -50,7 +50,7 @@ public class BackEndRunner {
           toWrite += "<td>" + song.getSongArtist() + "</td>";
           toWrite += "<td>" + song.getSongGenre() + "</td>";
           toWrite += "<td>" + song.getSongAlbum() + "</td>";	
-          toWrite += "<td>" + "link goes here" + "</td>";
+          toWrite += "<td><a href=" + song.getSongLink() +">" + song.getSongLink() + "</a></td>";
           toWrite += "</tr>";
           if(i==10){
           	break;
@@ -69,31 +69,58 @@ public class BackEndRunner {
     }
   } 
   
+  public static void writeNotFound(String notFound){
+    String toWrite = "";
+    toWrite = "<h1>This " + notFound +  " was not found!</h1>";
+    try{
+		FileWriter writeHTML = new FileWriter("outputSong.html");
+		writeHTML.write(toWrite);
+		writeHTML.close();
+    }
+    catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+  }
+  
   
   public static String callMethodString(String query) throws FileNotFoundException{
     String toSearch = getSongString(query);
 
     if(query.contains("Artist")) {
-      LinkedList<Song> outList = musicMethodsObj.getArtist(toSearch);
-      System.out.println("Searching for artist!");
-      writeTable(outList);
-      return outList.toString();
+      try{
+      	LinkedList<Song> outList = musicMethodsObj.getArtist(toSearch);
+      	System.out.println("Searching for artist!");
+        writeTable(outList);
+        return outList.toString();
+      } catch(java.util.NoSuchElementException nsee){
+      	writeNotFound("artist");
+      	return "";
+      }
     }
     if(query.contains("Genre")) {
-      LinkedList<Song> outList = musicMethodsObj.getArtist(toSearch);
-      System.out.println("Searching for genre!");
-      writeTable(outList);
-      return musicMethodsObj.getGenre(toSearch).toString();
+      try{
+      	LinkedList<Song> outList = musicMethodsObj.getGenre(toSearch);
+      	System.out.println("Searching for genre!");
+        writeTable(outList);
+        return musicMethodsObj.getGenre(toSearch).toString();
+      } catch(java.util.NoSuchElementException nsee){
+      	writeNotFound("genre");
+      	return "";
+      }
     }
     if(query.contains("Song")) {
-      System.out.println("Searching for song!");
-      Song output = musicMethodsObj.getSong(toSearch);
-      String toWrite = "";
-      toWrite = "<h1>" + output.getSongName() + "</h1>";
-      toWrite += "<h2>Artist: " + output.getSongArtist() + "</h2>";
-      toWrite += "<h2>Genre: " + output.getSongGenre() + "</h2>";
-      toWrite += "<h2>Album: " + output.getSongAlbum() + "</h2>";
       try{
+      	Song output = musicMethodsObj.getSong(toSearch);
+      	System.out.println("Searching for song!");
+      
+      	String toWrite = "";
+     	toWrite = "<h1>" + output.getSongName() + "</h1>";
+      	toWrite += "<h2>Artist: " + output.getSongArtist() + "</h2>";
+      	toWrite += "<h2>Genre: " + output.getSongGenre() + "</h2>";
+      	toWrite += "<h2>Album: " + output.getSongAlbum() + "</h2>";
+      	toWrite += "<h2>Link: <a href="+ output.getSongLink()+">" + output.getSongLink() + "</a></h2>";
+      	try{
 		FileWriter writeHTML = new FileWriter("outputSong.html");
 		writeHTML.write(toWrite);
 		writeHTML.close();
@@ -102,7 +129,11 @@ public class BackEndRunner {
 	      System.out.println("An error occurred.");
 	      e.printStackTrace();
     	}
-      return output.toString();
+      } catch(java.util.NoSuchElementException nsee){
+      	writeNotFound("song");
+      	return "";
+      }
+      return "";
     }
     // never going to happen
     return null;

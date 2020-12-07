@@ -16,6 +16,7 @@ public class Song {
   private String songArtist; 
   private String songGenre; 
   private String songAlbum;
+  private String songLink; 
   
   /**
    * Default constructor for Song class.
@@ -32,11 +33,12 @@ public class Song {
    * @param genre
    * @param album
    */
-  public Song(String song, String artist, String genre, String album) {
+  public Song(String song, String artist, String genre, String album, String link) {
     this.songName = song;
     this.songArtist = artist;
     this.songGenre = genre;
     this.songAlbum = album;
+    this.songLink = link;
   }
   
   /**
@@ -69,6 +71,14 @@ public class Song {
   }
   
   /**
+   * Setter for song link.
+   * @param album
+   */
+  public void setSongLink(String link) {
+    this.songLink = link;
+  }
+  
+  /**
    * Getter for song name.
    * @return songName
    */
@@ -97,15 +107,12 @@ public class Song {
     return this.songAlbum;
   }
   
-  public String toString() {
-    String toReturn = "";
-    toReturn += "Song Name: " + this.songName + '\n';
-    toReturn += "Artist Name: " + this.songArtist + '\n';
-    toReturn += "Album: " + this.songAlbum + '\n';
-    toReturn += "Genre: " + this.songGenre;
-    
-    return toReturn;
+  /**
+   * Getter for song link.
+   * @param album
+   */
+  public String getSongLink() {
+    return this.songLink;
   }
 
 }
-

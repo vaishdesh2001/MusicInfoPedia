@@ -13,36 +13,20 @@
  *
  */
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class MusicManager{
     private HashTableMap<String, Song> database = new HashTableMap<String, Song>(10);
 
     public Song getSong( String song ){
-        if(!database.containsKey(song)){
-            System.out.println("Sorry, the song was not found!");
-            return null;
-        }
-        else{
+    try {
+        Song toReturn = database.get(song);
+        return toReturn;
+    } 
+    catch (NoSuchElementException e) {
+        throw new NoSuchElementException();
+    }  
 
-            for(int i =0; i< database.pairs.length; i++){
-
-                if(database.pairs[i] != null){
-                    LinkedPair<String, Song> temp = database.pairs[i];
-
-                while(temp != null)
-                {
-                    if(temp.getValue().getSongName().equals(song))
-                    return (Song)temp.getValue();
-                    else
-                    temp = temp.getNext();  
-                }
-            }
-            else
-            continue;
-        }
-    }
-        return null;
-        
     }
 
     public LinkedList<Song> getArtist( String artist ){
@@ -54,7 +38,7 @@ public class MusicManager{
                 LinkedPair<String, Song> temp = database.pairs[i];
 
             while(temp != null){
-                if(temp.getValue().getSongArtist().equals(artist)){
+                if(temp.getValue().getSongArtist().equalsIgnoreCase(artist)){
                 songs.add(temp.getValue());
                 temp = temp.getNext();
                 }
@@ -67,7 +51,9 @@ public class MusicManager{
             continue;
 
         }
-
+        if(songs.isEmpty())
+        throw new NoSuchElementException();
+        else
         return songs;
     }
 
@@ -80,7 +66,7 @@ public class MusicManager{
                 LinkedPair<String, Song> temp = database.pairs[i];
 
             while(temp != null){
-                if(temp.getValue().getSongGenre().equals(genre)){
+                if(temp.getValue().getSongGenre().equalsIgnoreCase(genre)){
                 songs.add(temp.getValue());
                 temp = temp.getNext();
                 }
@@ -94,6 +80,9 @@ public class MusicManager{
 
         }
 
+        if(songs.isEmpty())
+        throw new NoSuchElementException();
+        else
         return songs;
     }
 
@@ -106,7 +95,7 @@ public class MusicManager{
                 LinkedPair<String, Song> temp = database.pairs[i];
 
             while(temp != null){
-                if(temp.getValue().getSongAlbum().equals(album)){
+                if(temp.getValue().getSongAlbum().equalsIgnoreCase(album)){
                 songs.add(temp.getValue());
                 temp = temp.getNext();
                 }
@@ -120,23 +109,27 @@ public class MusicManager{
 
         }
 
+        if(songs.isEmpty())
+        throw new NoSuchElementException();
+        else
         return songs;
     }
 
     public boolean putSong(String key, Song value){
 
         if(database.put(key, value)){
+        System.out.println("Song was added succesfully!");
         return true;
         }
         else
-        //System.out.println("Song was not added. Sorry!");
+          return false;
 
-        return false;
     }
 
     public String print(Song song){
+
         return song.getSongArtist()+"- "+song.getSongName()+"( "+song.getSongAlbum()+" )"+"( "
         +song.getSongGenre()+" )";
+
     }
 }
-

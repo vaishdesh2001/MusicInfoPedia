@@ -52,16 +52,16 @@ public class WebWindow extends Application {
 	    	
         });
         
-        view.setLayoutX(400);
-        view.setLayoutY(400);
+        view.setLayoutX(375);
+        view.setLayoutY(575);
         Button quit = new Button("Exit");
 	quit.setOnAction(event -> { Platform.exit(); });
-	quit.setLayoutY(400);
+	quit.setLayoutY(575);
 	Button home = new Button("Home Page");
 	home.setOnAction(event -> 
 	{webEngine.load( getClass().getResource("/index.html").toString());});
 	home.setLayoutX(700);
-	home.setLayoutY(400);
+	home.setLayoutY(575);
         Group group = new Group(webView, view, quit, home);
         Scene scene = new Scene(group,800,600);
         primaryStage.setScene(scene);
